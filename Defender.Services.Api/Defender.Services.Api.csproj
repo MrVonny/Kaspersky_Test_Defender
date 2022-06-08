@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Hangfire" Version="1.7.29" />
+      <PackageReference Include="Hangfire.MemoryStorage" Version="1.7.0" />
+      <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
+      <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.5" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Defender.Application\Defender.Application.csproj" />
+      <ProjectReference Include="..\Defender.Infrastructure.IoC\Defender.Infrastructure.IoC.csproj" />
+    </ItemGroup>
+
+</Project>

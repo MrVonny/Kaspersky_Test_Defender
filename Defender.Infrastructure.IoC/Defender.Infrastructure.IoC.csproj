@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.5" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Defender.Application\Defender.Application.csproj" />
+      <ProjectReference Include="..\Defender.Domain.Core\Defender.Domain.Core.csproj" />
+      <ProjectReference Include="..\Defender.Domain\Defender.Domain.csproj" />
+      <ProjectReference Include="..\Defender.Infrastructure.Bus\Defender.Infrastructure.Bus.csproj" />
+      <ProjectReference Include="..\Defender.Infrastructure.Data\Defender.Infrastructure.Data.csproj" />
+    </ItemGroup>
+
+</Project>

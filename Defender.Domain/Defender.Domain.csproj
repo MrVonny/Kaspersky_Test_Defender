@@ -17,6 +17,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="AhoCorasick.Net" Version="0.6.1-beta" />
       <PackageReference Include="Hangfire" Version="1.7.29" />
     </ItemGroup>
 

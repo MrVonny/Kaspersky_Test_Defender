@@ -47,13 +47,14 @@ public class DefenderCommandHandler : IRequestHandler<CreateDefenderTaskCommand,
 
         var scope = _serviceScopeFactory.CreateScope();
         var rep = scope.ServiceProvider.GetService<IDefenderTaskRepository>();
+        var fileScanner = scope.ServiceProvider.GetService<IFileScanner>();
 
 
 #pragma warning disable CS4014
         Task.Run(() =>
 #pragma warning restore CS4014
         {
-            new DefenderEngine.DefenderEngine(rep).Start(defenderTask).Wait(cancellationToken);
+            new DefenderEngine.DefenderEngine(rep, fileScanner).Start(defenderTask).Wait(cancellationToken);
             rep.Dispose();
         }, cancellationToken);
 

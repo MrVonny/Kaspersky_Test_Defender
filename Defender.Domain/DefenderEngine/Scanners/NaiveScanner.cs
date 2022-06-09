@@ -6,7 +6,7 @@ public class NaiveScanner : FileScanner
     {
         foreach (var line in File.ReadLines(path))
         {
-            if (line.Contains(SUSPICIOUS_RMRF))
+            if (line.Contains(SUSPICIOUS_JS))
                 return SuspiciousType.Js;
             if (line.Contains(SUSPICIOUS_RMRF))
                 return SuspiciousType.RunDll;
@@ -20,7 +20,7 @@ public class NaiveScanner : FileScanner
     public override SuspiciousType ProcessFile(string path)
     {
         var line = File.ReadAllText(path);
-        if (line.Contains(SUSPICIOUS_RMRF))
+        if (line.Contains(SUSPICIOUS_JS))
             return SuspiciousType.Js;
         if (line.Contains(SUSPICIOUS_RMRF))
             return SuspiciousType.RunDll;

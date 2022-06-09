@@ -9,7 +9,8 @@ public class CreateDefenderTaskCommand : DefenderCommand
         Directory = directory;
     }
     public string Directory { get; protected set; }
-
+    
+    //ToDo: Add validation
     public override bool IsValid()
     {
         return true;

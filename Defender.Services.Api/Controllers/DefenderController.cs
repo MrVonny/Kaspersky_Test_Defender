@@ -41,13 +41,16 @@ public class DefenderController : ApiController
     
     [HttpGet]
     [Route("status/{id}")]
-    public async Task<IActionResult> Status([Required, Range(1, int.MaxValue)] int? id)
+    public async Task<IActionResult> Status(int? id)
     {
+        if (id is not > 0) ModelState.AddModelError("", "Invalid Task ID");
+
         if (!ModelState.IsValid)
         {
             NotifyModelStateErrors();
             return Response();
         }
+
         var task = await _defender.GetTask(id!.Value);
         if (task == null)
         {

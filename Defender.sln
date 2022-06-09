@@ -31,6 +31,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Defender.Infrastructure.IoC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Defender.Services.Client", "Defender.Services.Client\Defender.Services.Client.csproj", "{07444615-E659-4B0C-B74B-DBD386C92AE2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Defender.Tests.Benchmark", "Defender.Tests.Benchmark\Defender.Tests.Benchmark.csproj", "{D3751BEA-FF38-49A2-AFCE-1F68F20BE251}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{07444615-E659-4B0C-B74B-DBD386C92AE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07444615-E659-4B0C-B74B-DBD386C92AE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07444615-E659-4B0C-B74B-DBD386C92AE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3751BEA-FF38-49A2-AFCE-1F68F20BE251}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3751BEA-FF38-49A2-AFCE-1F68F20BE251}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3751BEA-FF38-49A2-AFCE-1F68F20BE251}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3751BEA-FF38-49A2-AFCE-1F68F20BE251}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -86,6 +92,7 @@ Global
 		{DBF47488-365F-42D7-91E8-2C2A9B544076} = {2578517A-30E3-4519-881E-774159553AAD}
 		{4D56F51D-E2A5-4B11-83B7-ED3AB968A3C5} = {2578517A-30E3-4519-881E-774159553AAD}
 		{07444615-E659-4B0C-B74B-DBD386C92AE2} = {ECB2A8D5-6C11-4B47-8DDE-8219D84D14B8}
+		{D3751BEA-FF38-49A2-AFCE-1F68F20BE251} = {CC638C00-D9AA-4CD7-80EA-B40C8F9B1198}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3BBED7A0-DEF4-4F8D-BABC-295F87EF47E5}

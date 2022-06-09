@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Defender.Domain.Core.Models;
 
@@ -12,7 +13,7 @@ public class DefenderTask
     
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public TaskId Id { get; set; }
+    public int Id { get; set; }
     public string Directory { get; set; }
     public DefenderTaskStatus Status { get; set; } = DefenderTaskStatus.Created;
     public DateTime StartTime { get; set; }
@@ -23,7 +24,12 @@ public class DefenderTask
     public int JsDetected { get; set; }
     public int RmRfDetected { get; set; }
     public int RunDllDetected { get; set; }
+    
+    public string Error { get; set; }
 }
 
-[StronglyTypedId(backingType: StronglyTypedIdBackingType.Int)]
-public partial struct TaskId { }
+[StronglyTypedId(jsonConverter: StronglyTypedIdJsonConverter.NewtonsoftJson)]
+public partial struct TaskId
+{
+
+}

@@ -9,6 +9,13 @@ public sealed class ApplicationDbContext : DbContext
     {
         Database.EnsureCreated();
     }
-    
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<DefenderTask>()
+            .Property(x => x.Id);
+    }
+
     public DbSet<DefenderTask> DefenderTasks { get; set; }
 }

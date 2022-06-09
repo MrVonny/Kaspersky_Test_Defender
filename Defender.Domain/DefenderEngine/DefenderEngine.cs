@@ -37,7 +37,7 @@ public class DefenderEngine : IDefenderEngine
             await Parallel.ForEachAsync(files,
                 new ParallelOptions()
                 {
-
+                    MaxDegreeOfParallelism = 12
                 },
                 (s, token) =>
                 {
@@ -78,9 +78,10 @@ public class DefenderEngine : IDefenderEngine
 
             _taskRepository.Update(defenderTask);
         }
-        catch (Exception)
+        catch (Exception e)
         {
             defenderTask.Status = DefenderTaskStatus.Faulted;
+            defenderTask.Error = e.Message;
             _taskRepository.Update(defenderTask);
         }
 
@@ -89,7 +90,7 @@ public class DefenderEngine : IDefenderEngine
 
     public DefenderTask Create(string directory)
     {
-        var task = new DefenderTask(directory);
+        var task = new DefenderTask(Path.GetFullPath(directory));
         _taskRepository.Add(task);
         _taskRepository.SaveChanges();
         return task;
@@ -102,7 +103,7 @@ public class DefenderEngine : IDefenderEngine
 
     private SuspiciousType ProcessFile(string path)
     {
-        foreach (var line in File.ReadAllLines(path))
+        foreach (var line in File.ReadLines(path))
         {
             if (line.Contains(SUSPICIOUS_JS))
                 return SuspiciousType.Js;

@@ -3,8 +3,8 @@ using MediatR;
 
 namespace Defender.Domain.Core.Commands;
 
-public abstract class DefenderCommand : Command, IRequest<TaskId?>
+public abstract class DefenderCommand : Command, IRequest<int?>
 {
-    public TaskId Id { get; protected set; }
+    public int Id { get; protected set; }
     
 }

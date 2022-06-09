@@ -9,8 +9,8 @@ using MediatR;
 
 namespace Defender.Domain.CommandHandlers;
 
-public class DefenderCommandHandler : IRequestHandler<CreateDefenderTaskCommand, TaskId?>,
-    IRequestHandler<CancelDefenderTaskCommand, TaskId?>
+public class DefenderCommandHandler : IRequestHandler<CreateDefenderTaskCommand, int?>,
+    IRequestHandler<CancelDefenderTaskCommand, int?>
 {
 
     private readonly IDefenderTaskRepository _taskRepository;
@@ -32,7 +32,7 @@ public class DefenderCommandHandler : IRequestHandler<CreateDefenderTaskCommand,
         }
     }
 
-    public async Task<TaskId?> Handle(CreateDefenderTaskCommand request, CancellationToken cancellationToken)
+    public async Task<int?> Handle(CreateDefenderTaskCommand request, CancellationToken cancellationToken)
     {
         if (!request.IsValid())
         {
@@ -47,7 +47,7 @@ public class DefenderCommandHandler : IRequestHandler<CreateDefenderTaskCommand,
         return defenderTask.Id;
     }
 
-    public Task<TaskId?> Handle(CancelDefenderTaskCommand request, CancellationToken cancellationToken)
+    public Task<int?> Handle(CancelDefenderTaskCommand request, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }

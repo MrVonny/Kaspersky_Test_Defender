@@ -1,5 +1,6 @@
 ﻿using Defender.Domain.Core.Bus;
 using Defender.Domain.Core.Commands;
+using Defender.Domain.Core.Models;
 using MediatR;
 
 namespace Defender.Infrastructure.Bus;
@@ -13,10 +14,9 @@ public class InMemoryBus : IMediatorHandler
         _mediator = mediator;
     }
 
-    public Task SendCommand<T>(T command) where T : Command
+    public Task<int?> SendCommand<T>(T command) where T : DefenderCommand
     {
-        _mediator.Send(command);
-        return Task.CompletedTask;
+        return _mediator.Send(command);
     }
 
     public Task RaiseEvent<T>(T @event) where T : INotification

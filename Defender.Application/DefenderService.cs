@@ -1,28 +1,40 @@
-﻿using Defender.Domain.Core.Models;
+﻿using Defender.Domain.Commands;
+using Defender.Domain.Core.Bus;
+using Defender.Domain.Core.Models;
+using Defender.Domain.Interfaces;
 
 namespace Defender.Application;
 
 public class DefenderService : IDefenderService
 {
-    public Task<TaskId?> CreateSearchTask(string path)
+    private readonly IDefenderTaskRepository _taskRepository;
+    private readonly IMediatorHandler _bus;
+
+    public DefenderService(IDefenderTaskRepository taskRepository, IMediatorHandler bus)
     {
-        throw new NotImplementedException();
+        _taskRepository = taskRepository;
+        _bus = bus;
     }
 
-    public Task<DefenderTask> GetTaskStatus(TaskId id)
+    public async Task<int?> CreateSearchTask(CreateDefenderTaskCommand command)
     {
-        throw new NotImplementedException();
+        return await _bus.SendCommand(command);
     }
 
-    public Task<DefenderTask> GetTask(TaskId id)
+    public async Task<DefenderTaskStatus> GetTaskStatus(int id)
     {
-        throw new NotImplementedException();
+        return (await _taskRepository.GetById(id)).Status;
+    }
+
+    public async Task<DefenderTask> GetTask(int id)
+    {
+        return (await _taskRepository.GetById(id));
     }
 }
 
 public interface IDefenderService
 {
-    Task<TaskId?> CreateSearchTask(string path);
-    Task<DefenderTask> GetTaskStatus(TaskId id);
-    Task<DefenderTask> GetTask(TaskId id);
+    Task<int?> CreateSearchTask(CreateDefenderTaskCommand command);
+    Task<DefenderTaskStatus> GetTaskStatus(int id);
+    Task<DefenderTask> GetTask(int id);
 }

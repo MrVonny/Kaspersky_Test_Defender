@@ -17,7 +17,9 @@ builder.WebHost
 
 var services = builder.Services;
 
-services.AddControllers();
+services.AddControllers()
+    .AddNewtonsoftJson();
+
 services.AddHangfire(config =>
 {
     config.UseMemoryStorage();
@@ -26,7 +28,7 @@ services.AddHangfireServer();
 services.AddSignalR();
 
 // Adding MediatR for Domain Events and Notifications
-services.AddMediatR(typeof(Command).GetTypeInfo().Assembly);
+services.AddMediatR(Assembly.GetExecutingAssembly());
 
 NativeInjectorBootStrapper.RegisterServices(services);
 
@@ -42,7 +44,6 @@ app.UseCors(x => x
     .AllowAnyMethod()
     .AllowAnyHeader());
 
-app.MapHub<DefenderHub>("/defender");
 
 app.UseEndpoints(endpoints =>
 {

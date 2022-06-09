@@ -1,8 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Defender.Application", "Defender.Application\Defender.Application.csproj", "{597FA688-3777-472C-A994-9BD8CB2BD0B2}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32526.322
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Defender.Application", "Defender.Application\Defender.Application.csproj", "{597FA688-3777-472C-A994-9BD8CB2BD0B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Defender.Services.Api", "Defender.Services.Api\Defender.Services.Api.csproj", "{719D42EF-8CC1-4D37-B977-694C24992180}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Defender.Services.Api", "Defender.Services.Api\Defender.Services.Api.csproj", "{719D42EF-8CC1-4D37-B977-694C24992180}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{C2966AB9-989E-4724-B7F7-288F3F4D2987}"
 EndProject
@@ -14,19 +17,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{0DBB80E1-B1F2-4541-9003-1FC86FD5D914}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Defender.Infrastructure.Data", "Defender.Infrastructure.Data\Defender.Infrastructure.Data.csproj", "{129A1F8E-BD6B-4366-A87A-124A1D05B751}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Defender.Infrastructure.Data", "Defender.Infrastructure.Data\Defender.Infrastructure.Data.csproj", "{129A1F8E-BD6B-4366-A87A-124A1D05B751}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{E14E8573-78FD-4129-A745-07A9C858B787}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Defender.Domain.Core", "Defender.Domain.Core\Defender.Domain.Core.csproj", "{33295D88-91E8-4F46-8644-B268F879AD26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Defender.Domain.Core", "Defender.Domain.Core\Defender.Domain.Core.csproj", "{33295D88-91E8-4F46-8644-B268F879AD26}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Defender.Domain", "Defender.Domain\Defender.Domain.csproj", "{B080B8B2-8F20-4FED-94F7-EB24204C1F59}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Defender.Domain", "Defender.Domain\Defender.Domain.csproj", "{B080B8B2-8F20-4FED-94F7-EB24204C1F59}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Defender.Infrastructure.Bus", "Defender.Infrastructure.Bus\Defender.Infrastructure.Bus.csproj", "{DBF47488-365F-42D7-91E8-2C2A9B544076}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Defender.Infrastructure.Bus", "Defender.Infrastructure.Bus\Defender.Infrastructure.Bus.csproj", "{DBF47488-365F-42D7-91E8-2C2A9B544076}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Defender.Infrastructure.IoC", "Defender.Infrastructure.IoC\Defender.Infrastructure.IoC.csproj", "{4D56F51D-E2A5-4B11-83B7-ED3AB968A3C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Defender.Infrastructure.IoC", "Defender.Infrastructure.IoC\Defender.Infrastructure.IoC.csproj", "{4D56F51D-E2A5-4B11-83B7-ED3AB968A3C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Defender.Services.Client", "Defender.Services.Client\Defender.Services.Client.csproj", "{07444615-E659-4B0C-B74B-DBD386C92AE2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Defender.Services.Client", "Defender.Services.Client\Defender.Services.Client.csproj", "{07444615-E659-4B0C-B74B-DBD386C92AE2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,18 +70,24 @@ Global
 		{07444615-E659-4B0C-B74B-DBD386C92AE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07444615-E659-4B0C-B74B-DBD386C92AE2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{597FA688-3777-472C-A994-9BD8CB2BD0B2} = {0DBB80E1-B1F2-4541-9003-1FC86FD5D914}
+		{719D42EF-8CC1-4D37-B977-694C24992180} = {ECB2A8D5-6C11-4B47-8DDE-8219D84D14B8}
 		{ECB2A8D5-6C11-4B47-8DDE-8219D84D14B8} = {C2966AB9-989E-4724-B7F7-288F3F4D2987}
 		{2578517A-30E3-4519-881E-774159553AAD} = {C2966AB9-989E-4724-B7F7-288F3F4D2987}
 		{0DBB80E1-B1F2-4541-9003-1FC86FD5D914} = {C2966AB9-989E-4724-B7F7-288F3F4D2987}
-		{597FA688-3777-472C-A994-9BD8CB2BD0B2} = {0DBB80E1-B1F2-4541-9003-1FC86FD5D914}
 		{129A1F8E-BD6B-4366-A87A-124A1D05B751} = {2578517A-30E3-4519-881E-774159553AAD}
 		{E14E8573-78FD-4129-A745-07A9C858B787} = {C2966AB9-989E-4724-B7F7-288F3F4D2987}
 		{33295D88-91E8-4F46-8644-B268F879AD26} = {E14E8573-78FD-4129-A745-07A9C858B787}
 		{B080B8B2-8F20-4FED-94F7-EB24204C1F59} = {E14E8573-78FD-4129-A745-07A9C858B787}
-		{719D42EF-8CC1-4D37-B977-694C24992180} = {ECB2A8D5-6C11-4B47-8DDE-8219D84D14B8}
 		{DBF47488-365F-42D7-91E8-2C2A9B544076} = {2578517A-30E3-4519-881E-774159553AAD}
 		{4D56F51D-E2A5-4B11-83B7-ED3AB968A3C5} = {2578517A-30E3-4519-881E-774159553AAD}
 		{07444615-E659-4B0C-B74B-DBD386C92AE2} = {ECB2A8D5-6C11-4B47-8DDE-8219D84D14B8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3BBED7A0-DEF4-4F8D-BABC-295F87EF47E5}
 	EndGlobalSection
 EndGlobal

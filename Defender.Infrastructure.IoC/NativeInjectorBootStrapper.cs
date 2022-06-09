@@ -33,8 +33,8 @@ public class NativeInjectorBootStrapper
         services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
 
         // Domain - Commands
-        services.AddScoped<IRequestHandler<CreateDefenderTaskCommand, TaskId?>, DefenderCommandHandler>();
-        services.AddScoped<IRequestHandler<CancelDefenderTaskCommand, TaskId?>, DefenderCommandHandler>();
+        services.AddScoped<IRequestHandler<CreateDefenderTaskCommand, int?>, DefenderCommandHandler>();
+        services.AddScoped<IRequestHandler<CancelDefenderTaskCommand, int?>, DefenderCommandHandler>();
 
         // Infra - Data
         services.AddDbContext<ApplicationDbContext>(options =>

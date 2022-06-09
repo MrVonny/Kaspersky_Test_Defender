@@ -6,6 +6,7 @@ using Defender.Domain.Core.Notifications;
 using Defender.Domain.Interfaces;
 using Hangfire;
 using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Defender.Domain.CommandHandlers;
 
@@ -16,12 +17,14 @@ public class DefenderCommandHandler : IRequestHandler<CreateDefenderTaskCommand,
     private readonly IDefenderTaskRepository _taskRepository;
     private readonly IMediatorHandler _bus;
     private readonly IDefenderEngine _defenderEngine;
+    private readonly IServiceScopeFactory _serviceScopeFactory;
 
-    public DefenderCommandHandler(IDefenderTaskRepository taskRepository, IMediatorHandler bus, IDefenderEngine defenderEngine)
+    public DefenderCommandHandler(IDefenderTaskRepository taskRepository, IMediatorHandler bus, IDefenderEngine defenderEngine, IServiceScopeFactory serviceScopeFactory)
     {
         _taskRepository = taskRepository;
         _bus = bus;
         _defenderEngine = defenderEngine;
+        _serviceScopeFactory = serviceScopeFactory;
     }
 
     protected void NotifyValidationErrors(Command message)
@@ -41,7 +44,19 @@ public class DefenderCommandHandler : IRequestHandler<CreateDefenderTaskCommand,
         }
         
         var defenderTask = _defenderEngine.Create(request.Directory);
-        
+
+        var scope = _serviceScopeFactory.CreateScope();
+        var rep = scope.ServiceProvider.GetService<IDefenderTaskRepository>();
+
+
+#pragma warning disable CS4014
+        Task.Run(() =>
+#pragma warning restore CS4014
+        {
+            new DefenderEngine.DefenderEngine(rep).Start(defenderTask).Wait(cancellationToken);
+            rep.Dispose();
+        }, cancellationToken);
+
         BackgroundJob.Enqueue<DefenderEngine.DefenderEngine>(engine => engine.Start(defenderTask));
 
         return defenderTask.Id;

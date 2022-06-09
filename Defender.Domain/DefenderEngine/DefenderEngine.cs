@@ -14,6 +14,7 @@ public class DefenderEngine : IDefenderEngine
         _fileScanner = fileScanner;
     }
 
+    [Obsolete($"Use {nameof(StartByLines)} instead.")]
     public async Task Start(DefenderTask defenderTask)
     {
         defenderTask.Status = DefenderTaskStatus.Running;
@@ -72,7 +73,7 @@ public class DefenderEngine : IDefenderEngine
 
             defenderTask.EndTime = DateTime.Now;
             defenderTask.Status = DefenderTaskStatus.RanToCompletion;
-            defenderTask.FilesProcessed = files.Count;
+            defenderTask.FilesProcessed = files.Length;
 
             _taskRepository.Update(defenderTask);
         }
@@ -143,7 +144,7 @@ public class DefenderEngine : IDefenderEngine
 
             defenderTask.EndTime = DateTime.Now;
             defenderTask.Status = DefenderTaskStatus.RanToCompletion;
-            defenderTask.FilesProcessed = files.Count;
+            defenderTask.FilesProcessed = files.Length;
 
             _taskRepository.Update(defenderTask);
         }
@@ -165,9 +166,9 @@ public class DefenderEngine : IDefenderEngine
         return task;
     }
 
-    private List<string> GetFiles(string directory)
+    private string[] GetFiles(string directory)
     { 
-        return Directory.GetFiles(directory, "*.*", SearchOption.AllDirectories).ToList();
+        return Directory.GetFiles(directory, "*.*", SearchOption.AllDirectories);
     }
 
 }

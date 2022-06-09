@@ -54,11 +54,9 @@ public class DefenderCommandHandler : IRequestHandler<CreateDefenderTaskCommand,
         Task.Run(() =>
 #pragma warning restore CS4014
         {
-            new DefenderEngine.DefenderEngine(rep, fileScanner).Start(defenderTask).Wait(cancellationToken);
+            new DefenderEngine.DefenderEngine(rep, fileScanner).StartByLines(defenderTask).Wait(cancellationToken);
             rep.Dispose();
         }, cancellationToken);
-
-        BackgroundJob.Enqueue<DefenderEngine.DefenderEngine>(engine => engine.Start(defenderTask));
 
         return defenderTask.Id;
     }

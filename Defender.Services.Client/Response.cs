@@ -1,7 +1,6 @@
-﻿using System.Text.Json.Serialization;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
-namespace scan_util;
+namespace Defender.Services.Client;
 
 public class Response<T>
 {

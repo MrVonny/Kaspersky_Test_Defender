@@ -3,6 +3,7 @@ using System.CommandLine.Invocation;
 using System.Text;
 using System.Text.Json.Nodes;
 using Defender.Domain.Core.Models;
+using Defender.Services.Client;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;

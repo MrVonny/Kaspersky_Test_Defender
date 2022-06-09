@@ -22,7 +22,11 @@ public class Program
         scanCommand.SetHandler(async dir =>
         {
             var result = await Scan(dir);
-            Console.WriteLine($"Scan task was created with ID: {result}");
+            if (!result.Success)
+            {
+                ShowErrors(result.Errors);
+            }
+            Console.WriteLine($"Scan task was created with ID: {result.Data}");
         }, dirArg);
         
         var statusCommand = new Command("status", "Show status");
@@ -31,23 +35,28 @@ public class Program
         statusCommand.SetHandler( async id =>
         {
             var result = await Status(id);
-            switch (result.Status)
+            if (!result.Success)
             {
-                case DefenderTaskStatus.Running:
-                    Console.WriteLine("Scan task in progress, please wait");
-                    break;
-                case DefenderTaskStatus.RanToCompletion:
-                    Console.WriteLine("====== Scan result ======");
-                    Console.WriteLine(result.ToFormattedString());
-                    Console.WriteLine("=========================");
-                    break;
-                case DefenderTaskStatus.Faulted:
-                    Console.WriteLine("Scan task failed with an error");
-                    Console.WriteLine(result.Error);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
+                ShowErrors(result.Errors);
             }
+            else
+                switch (result.Data.Status)
+                {
+                    case DefenderTaskStatus.Running:
+                        Console.WriteLine("Scan task in progress, please wait");
+                        break;
+                    case DefenderTaskStatus.RanToCompletion:
+                        Console.WriteLine("====== Scan result ======");
+                        Console.WriteLine(result.Data.ToFormattedString());
+                        Console.WriteLine("=========================");
+                        break;
+                    case DefenderTaskStatus.Faulted:
+                        Console.WriteLine("Scan task failed with an error");
+                        Console.WriteLine(result.Data.Error);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
 
 
         }, statusArg);
@@ -63,22 +72,30 @@ public class Program
         return await rootCommand.InvokeAsync(args);
     }
 
-    public static async Task<string> Scan(string directory)
+    public static async Task<Response<int>> Scan(string directory)
     {
         using var client = new HttpClient();
         var uri = new UriBuilder("http://localhost:5001/defender/create");
         string json = new JObject(new JProperty("directory", directory)).ToString(Formatting.None);
         var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
         var httpResponse = await client.PostAsync(uri.ToString(), httpContent);
-        return await httpResponse.Content.ReadAsStringAsync();
+        return JsonConvert.DeserializeObject<Response<int>>(await httpResponse.Content.ReadAsStringAsync());
     }
     
-    public static async Task<DefenderTask> Status(int id)
+    public static async Task<Response<DefenderTask>> Status(int id)
     {
         using var client = new HttpClient();
         var uri = new UriBuilder($"http://localhost:5001/defender/status/{id}");
         var httpResponse = await client.GetAsync(uri.ToString());
-        return JsonConvert.DeserializeObject<DefenderTask>(await httpResponse.Content.ReadAsStringAsync());
+        return JsonConvert.DeserializeObject<Response<DefenderTask>>(await httpResponse.Content.ReadAsStringAsync());
+    }
+
+    private static void ShowErrors(IEnumerable<string> errors)
+    {
+        foreach (var error in errors)
+        {
+            Console.WriteLine($"Error: {error}");
+        }
     }
 }
 

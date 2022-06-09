@@ -1,8 +1,10 @@
-﻿using Defender.Application;
+﻿using System.ComponentModel.DataAnnotations;
+using Defender.Application;
 using Defender.Domain.Commands;
 using Defender.Domain.Core.Bus;
 using Defender.Domain.Core.Models;
 using Defender.Domain.Core.Notifications;
+using Defender.Services.Api.ViewModels;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -11,38 +13,50 @@ namespace Defender.Services.Api.Controllers;
 
 [ApiController]
 [Route("defender")]
-public class DefenderController
+public class DefenderController : ApiController
 {
     private readonly IDefenderService _defender;
-    private readonly IMediatorHandler _mediator;
-    private readonly INotificationHandler<DomainNotification> _notifications;
-
-    public DefenderController(IDefenderService defender, INotificationHandler<DomainNotification> notifications, IMediatorHandler mediator)
+    
+    public DefenderController(INotificationHandler<DomainNotification> notifications, IMediatorHandler mediator, IDefenderService defender) : base(notifications, mediator)
     {
         _defender = defender;
-        _notifications = notifications;
-        _mediator = mediator;
     }
     
     [HttpPost]
     [Route("create")]
     public async Task<IActionResult> Create([FromBody] CreateDefenderTaskViewModel model)
     {
-        var res = await _defender.CreateSearchTask(new CreateDefenderTaskCommand(model.Directory));
-        return new OkObjectResult(res!.Value);
-    }
+        if (!ModelState.IsValid)
+        {
+            NotifyModelStateErrors();
+            return Response();
+        }
+        var taskId = await _defender.CreateSearchTask(new CreateDefenderTaskCommand(model.Directory));
+        if (!taskId.HasValue)
+            return Response();
 
-    public class CreateDefenderTaskViewModel
-    {
-        [JsonProperty("directory")]
-        public string Directory { get; set; }
+        return Response(taskId.Value);
     }
+    
     
     [HttpGet]
     [Route("status/{id}")]
-    public async Task<IActionResult> Status(int id)
+    public async Task<IActionResult> Status([Required, Range(1, int.MaxValue)] int? id)
     {
-        var res = await _defender.GetTask(id);
-        return new OkObjectResult(res);
+        if (!ModelState.IsValid)
+        {
+            NotifyModelStateErrors();
+            return Response();
+        }
+        var task = await _defender.GetTask(id!.Value);
+        if (task == null)
+        {
+            NotifyError("", "Task doesn't exists");
+            return Response();
+        }
+
+        return Response(task);
     }
+
+    
 }

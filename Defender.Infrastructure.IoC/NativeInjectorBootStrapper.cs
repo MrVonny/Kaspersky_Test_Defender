@@ -6,6 +6,7 @@ using Defender.Domain.Core.Commands;
 using Defender.Domain.Core.Models;
 using Defender.Domain.Core.Notifications;
 using Defender.Domain.DefenderEngine;
+using Defender.Domain.DefenderEngine.Scanners;
 using Defender.Domain.Interfaces;
 using Defender.Infrastructure.Bus;
 using Defender.Infrastructure.Data.Contexts;
@@ -28,6 +29,8 @@ public class NativeInjectorBootStrapper
             
         // Application
         services.AddScoped<IDefenderService, DefenderService>();
+        
+        services.AddScoped<IFileScanner, NaiveScanner>();
 
         // Domain - Events
         services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();

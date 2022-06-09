@@ -1,7 +1,6 @@
 ﻿using Defender.Domain.Core.Bus;
 using Defender.Domain.Core.Notifications;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Defender.Services.Api.Controllers;
@@ -43,24 +42,6 @@ namespace Defender.Services.Api.Controllers;
                 errors = _notifications.GetNotifications().Select(n => n.Value)
             });
         }
-        
-        protected new IActionResult CreatedResponse(string action, object result = null)
-        {
-            if (IsValidOperation())
-            {
-                return Created(action, new
-                {
-                    success = true,
-                    data = result
-                });
-            }
-
-            return BadRequest(new
-            {
-                success = false,
-                errors = _notifications.GetNotifications().Select(n => n.Value)
-            });
-        }
 
         protected void NotifyModelStateErrors()
         {
@@ -75,13 +56,5 @@ namespace Defender.Services.Api.Controllers;
         protected void NotifyError(string code, string message)
         {
             _mediator.RaiseEvent(new DomainNotification(code, message));
-        }
-
-        protected void AddIdentityErrors(IdentityResult result)
-        {
-            foreach (var error in result.Errors)
-            {
-                NotifyError(result.ToString(), error.Description);
-            }
         }
     }

@@ -9,7 +9,7 @@ public class NaiveScanner : FileScanner
             if (line.Contains(SUSPICIOUS_JS))
                 return SuspiciousType.Js;
             if (line.Contains(SUSPICIOUS_RMRF))
-                return SuspiciousType.RunDll;
+                return SuspiciousType.RmRf;
             if (line.Contains(SUSPICIOUS_RUNDLL))
                 return SuspiciousType.RunDll;
         }
@@ -23,7 +23,7 @@ public class NaiveScanner : FileScanner
         if (line.Contains(SUSPICIOUS_JS))
             return SuspiciousType.Js;
         if (line.Contains(SUSPICIOUS_RMRF))
-            return SuspiciousType.RunDll;
+            return SuspiciousType.RmRf;
         if (line.Contains(SUSPICIOUS_RUNDLL))
             return SuspiciousType.RunDll;
         return SuspiciousType.None;

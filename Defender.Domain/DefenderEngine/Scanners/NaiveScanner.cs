@@ -6,12 +6,18 @@ public class NaiveScanner : FileScanner
     {
         foreach (var line in File.ReadLines(path))
         {
-            if (line.Contains(SUSPICIOUS_JS))
-                return SuspiciousType.Js;
-            if (line.Contains(SUSPICIOUS_RMRF))
-                return SuspiciousType.RmRf;
-            if (line.Contains(SUSPICIOUS_RUNDLL))
-                return SuspiciousType.RunDll;
+            if (path.EndsWith(".js"))
+            {
+                if (line.Contains(SUSPICIOUS_JS))
+                    return SuspiciousType.Js;
+            }
+            else
+            {
+                if (line.Contains(SUSPICIOUS_RMRF))
+                    return SuspiciousType.RmRf;
+                if (line.Contains(SUSPICIOUS_RUNDLL))
+                    return SuspiciousType.RunDll;
+            }
         }
 
         return SuspiciousType.None;
@@ -20,12 +26,19 @@ public class NaiveScanner : FileScanner
     public override SuspiciousType ProcessFile(string path)
     {
         var line = File.ReadAllText(path);
-        if (line.Contains(SUSPICIOUS_JS))
-            return SuspiciousType.Js;
-        if (line.Contains(SUSPICIOUS_RMRF))
-            return SuspiciousType.RmRf;
-        if (line.Contains(SUSPICIOUS_RUNDLL))
-            return SuspiciousType.RunDll;
+        if (path.EndsWith(".js"))
+        {
+            if (line.Contains(SUSPICIOUS_JS))
+                return SuspiciousType.Js;
+        }
+        else
+        {
+            if (line.Contains(SUSPICIOUS_RMRF))
+                return SuspiciousType.RmRf;
+            if (line.Contains(SUSPICIOUS_RUNDLL))
+                return SuspiciousType.RunDll;
+        }
+        
         return SuspiciousType.None;
     }
 }

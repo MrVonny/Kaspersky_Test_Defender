@@ -6,7 +6,7 @@ public class RegexScanner : FileScanner
 {
     public override SuspiciousType ProcessFile(string path)
     {
-        var regex = new Regex(@"(\b<script>evil_script\(\)</script>\b)|(\brm -rf %userprofile%\\Documents\\b)|(\bRundll32 sus.dll SusEntry\b)");
+        var regex = new Regex(path.EndsWith(".js") ? @"(\brm -rf %userprofile%\\Documents\\b)|(\bRundll32 sus\.dll SusEntry\b)" : @"<script>evil_script\(\)</script>");
         var match = regex.Match(File.ReadAllText(path));
         return match.Value switch
         {
@@ -19,7 +19,7 @@ public class RegexScanner : FileScanner
 
     public override SuspiciousType ProcessFileByLines(string path)
     {
-        var regex = new Regex(@"(\b<script>evil_script\(\)</script>\b)|(\brm -rf %userprofile%\\Documents\\b)|(\bRundll32 sus\.dll SusEntry\b)");
+        var regex = new Regex(path.EndsWith(".js") ? @"(\brm -rf %userprofile%\\Documents\\b)|(\bRundll32 sus\.dll SusEntry\b)" : @"<script>evil_script\(\)</script>");
         foreach (var line in File.ReadLines(path))
         {
             

@@ -6,7 +6,9 @@ public class AhoCorasickScanner : FileScanner
 {
     public override SuspiciousType ProcessFile(string path)
     {
-        var tree = new AhoCorasickTree(new[] { SUSPICIOUS_JS, SUSPICIOUS_RMRF, SUSPICIOUS_RUNDLL });
+        
+        var tree = new AhoCorasickTree(path.EndsWith(".js") ? new []{ SUSPICIOUS_JS} : new[] { SUSPICIOUS_RMRF, SUSPICIOUS_RUNDLL });
+
         return tree.Search(File.ReadAllText(path)).FirstOrDefault().Key switch
         {
             SUSPICIOUS_JS => SuspiciousType.Js,
@@ -18,7 +20,7 @@ public class AhoCorasickScanner : FileScanner
 
     public override SuspiciousType ProcessFileByLines(string path)
     {
-        var tree = new AhoCorasickTree(new[] { SUSPICIOUS_JS, SUSPICIOUS_RMRF, SUSPICIOUS_RUNDLL });
+        var tree = new AhoCorasickTree(path.EndsWith(".js") ? new []{ SUSPICIOUS_JS} : new[] { SUSPICIOUS_RMRF, SUSPICIOUS_RUNDLL });
         foreach (var line in File.ReadLines(path))
         {
             var type = tree.Search(line).FirstOrDefault().Key switch

@@ -1,5 +1,29 @@
 # Тестовое Задание в Касперский
 
+Привет! Понимаю, что разобраться во всех тестовых заданиях непростая работа, а потому постараюсь помочь разобраться в моём решении.
+
+## Запуск
+В папке Build содержатся два исполняемых файла. 
+Сначала нужно запустить сервер:
+
+    N:\Kaspersky\Build> scan_service
+
+Затем в другой командой строке воспользоваться утилитой:
+
+    N:\Kaspersky\Build> scan_util scan "N:\Program Files\dotnet"
+    Scan task was created with ID: 1
+    
+    N:\Kaspersky\Build> scan_util status 1
+    ====== Scan result ======
+    Directory: N:\Program Files\dotnet
+    Processed files: 13888
+    JS detects: 0
+    rm -rf detects: 0
+    Rundll32 detects: 0
+    Errors: 0
+    Exection time: 00:00:05.5506241
+    =========================
+
 ## Бенчмарки
 Для определения наиболее эффективного метода обработки файлов проводились тесты с помощью бенчмарка [BenchmarkDotNet](https://benchmarkdotnet.org/articles/overview.html) на .NET SDK 6.0.300. Использовались следующие параметры:
 - Способ обработки строк

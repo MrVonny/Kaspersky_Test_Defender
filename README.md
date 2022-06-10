@@ -1,5 +1,5 @@
 # Тестовое Задание в Касперский
-![Show](/imgs/show.gif)
+![Show](https://github.com/MrVonny/Kaspersky_Test_Defender/blob/master/Imgs/show.gif)
 Привет! Понимаю, что разобраться во всех тестовых заданиях непростая работа, а потому постараюсь помочь разобраться в моём решении.
 
 ## Запуск

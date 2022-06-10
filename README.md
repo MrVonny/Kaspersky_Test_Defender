@@ -32,3 +32,5 @@
 | ByLinesScanner | NaiveScanner       |     8.211 ms |  0.1097 ms |  0.1026 ms |      60 (27,19 MB) |
 | AllFileScanner | RegexScanner       |    31.940 ms |  0.6228 ms |  0.9129 ms |      60 (27,19 MB) |
 | ByLinesScanner | RegexScanner       |    14.960 ms |  0.1336 ms |  0.1184 ms |      60 (27,19 MB) |
+
+[Код бенмарков](/Defender.Tests.Benchmark/FileScanBenchmark.cs)

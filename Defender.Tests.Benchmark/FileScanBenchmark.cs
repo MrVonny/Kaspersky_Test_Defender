@@ -29,8 +29,8 @@ public class FileScanBenchmark
         }
     }
     
-    public IEnumerable<IFileScanner> Scanners => new FileScanner[] { new NaiveScanner(), new AhoCorasickScanner(), new RegexScanner() };
-    public IEnumerable<string> Paths => new[] { /*@"N:\Program Files (x86)\Steam\steamapps\common\dota 2 beta",*/ @"D:\repo\Defender\Defender.Domain.Core", @"D:\repo\Defender", @"D:\repo"};
+    public IEnumerable<IFileScanner> Scanners => new FileScanner[] { new NaiveScanner(), new RegexScanner(), new AhoCorasickScanner() };
+    public IEnumerable<string> Paths => new[] { @"D:\repo", @"D:\repo\Kaspersky_Test_Defender", @"D:\repo\Kaspersky_Test_Defender\TestData"};
     
     [ParamsSource(nameof(Paths))]
     public string Path;

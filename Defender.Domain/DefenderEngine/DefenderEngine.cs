@@ -1,5 +1,6 @@
 ﻿using Defender.Domain.Core.Models;
 using Defender.Domain.Interfaces;
+using Serilog;
 
 namespace Defender.Domain.DefenderEngine;
 
@@ -36,7 +37,7 @@ public class DefenderEngine : IDefenderEngine
             await Parallel.ForEachAsync(files,
                 new ParallelOptions()
                 {
-                    MaxDegreeOfParallelism = 12
+                    
                 },
                 (s, token) =>
                 {
@@ -114,6 +115,7 @@ public class DefenderEngine : IDefenderEngine
                     try
                     {
                         var res = _fileScanner.ProcessFileByLines(s);
+                        //Log.Information("{@Directory} is {@res}", s, res);
                         switch (res)
                         {
                             case SuspiciousType.Js:
@@ -131,6 +133,7 @@ public class DefenderEngine : IDefenderEngine
                     }
                     catch (Exception e)
                     {
+                        Log.Warning(e, "Can't scan file {@Directory}", s);
                         Interlocked.Increment(ref errors);
                     }
 
@@ -146,10 +149,12 @@ public class DefenderEngine : IDefenderEngine
             defenderTask.Status = DefenderTaskStatus.RanToCompletion;
             defenderTask.FilesProcessed = files.Length;
 
+            Log.Information("Updating Task {@Task}", defenderTask.Id);
             _taskRepository.Update(defenderTask);
         }
         catch (Exception e)
         {
+            Log.Fatal(e, "Problem while scanning occured.");
             defenderTask.Status = DefenderTaskStatus.Faulted;
             defenderTask.Error = e.Message;
             _taskRepository.Update(defenderTask);
@@ -168,7 +173,10 @@ public class DefenderEngine : IDefenderEngine
 
     private string[] GetFiles(string directory)
     { 
-        return Directory.GetFiles(directory, "*.*", SearchOption.AllDirectories);
+        Log.Information("Searching for files in '{@Directory}'", directory);
+        var files = Directory.GetFiles(directory, "*.*", SearchOption.AllDirectories);
+        Log.Information("Found {@Count} files", files.Length);
+        return files;
     }
 
 }

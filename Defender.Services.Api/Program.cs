@@ -6,9 +6,17 @@ using Hangfire;
 using Hangfire.MemoryStorage;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Host
+    .UseSerilog((context, configuration) =>
+    {
+        configuration
+            .Enrich.WithThreadId()
+            .WriteTo.Console();
+    });
 builder.WebHost
     .UseKestrel()
     .UseContentRoot(Directory.GetCurrentDirectory())

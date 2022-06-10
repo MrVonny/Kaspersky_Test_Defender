@@ -1,4 +1,6 @@
-﻿namespace Defender.Domain.DefenderEngine.Scanners;
+﻿using Serilog;
+
+namespace Defender.Domain.DefenderEngine.Scanners;
 
 public class NaiveScanner : FileScanner
 {

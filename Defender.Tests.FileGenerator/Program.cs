@@ -3,31 +3,33 @@ using Defender.Domain.DefenderEngine.Scanners;
 
 namespace Defender.Tests.FileGenerator
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            new TestDataGenerator(35, 12, 24, 30).Generate();
-        }
-    }
-
     public class TestDataGenerator
     {
         public int JsFiles { get; set; }
         public int RmRfFiles { get; set; }
         public int RunDllFiles { get; set; }
         public int CleanFiles { get; set; }
+        
+        public string Directory { get; set; }
 
-        public TestDataGenerator(int jsFiles, int rmRfFiles, int runDllFiles, int cleanFiles)
+        public TestDataGenerator(int jsFiles, int rmRfFiles, int runDllFiles, int cleanFiles, string directory)
         {
             JsFiles = jsFiles;
             RmRfFiles = rmRfFiles;
             RunDllFiles = runDllFiles;
             CleanFiles = cleanFiles;
+            Directory = directory;
         }
 
         public void Generate()
         {
+            DirectoryInfo di = new DirectoryInfo(Directory);
+
+            foreach (FileInfo file in di.GetFiles())
+            {
+                file.Delete(); 
+            }
+            
             GenerateFiles(CleanFiles);
             GenerateFiles(JsFiles, FileScanner.SUSPICIOUS_JS);
             GenerateFiles(RmRfFiles, FileScanner.SUSPICIOUS_RMRF);
@@ -36,10 +38,14 @@ namespace Defender.Tests.FileGenerator
 
         private void GenerateFiles(int count, string text = null)
         {
-            var dir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName;
+            // for (int i = 0; i < count; i++)
+            // {
+            //     GenerateFile(Path.Combine(Directory, $"{Guid.NewGuid()}"), text);
+            // }
+            
             Parallel.For(0, count, i =>
             {
-                GenerateFile(Path.Combine(dir, "TestData", $"{Guid.NewGuid()}"), text);
+                GenerateFile(Path.Combine(Directory, $"{Guid.NewGuid()}{(text == FileScanner.SUSPICIOUS_JS ? ".js" : "")}"), text);
             });
         }
         
@@ -47,7 +53,7 @@ namespace Defender.Tests.FileGenerator
         private void GenerateFile(string path, string text = null)
         {
             var rand = new Random();
-            var bytes = new byte[1024*64];
+            var bytes = new byte[1];
             rand.NextBytes(bytes);
             var streamWriter = File.AppendText(path);
             streamWriter.Write(Encoding.UTF8.GetString(bytes).ToCharArray());
@@ -55,6 +61,7 @@ namespace Defender.Tests.FileGenerator
                 streamWriter.Write(text);
             rand.NextBytes(bytes);
             streamWriter.Write(Encoding.UTF8.GetString(bytes).ToCharArray());
+            streamWriter.Dispose();
         }
     }
 }

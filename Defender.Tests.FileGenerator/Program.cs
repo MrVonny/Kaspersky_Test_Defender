@@ -53,7 +53,7 @@ namespace Defender.Tests.FileGenerator
         private void GenerateFile(string path, string text = null)
         {
             var rand = new Random();
-            var bytes = new byte[1];
+            var bytes = new byte[128 * 1024];
             rand.NextBytes(bytes);
             var streamWriter = File.AppendText(path);
             streamWriter.Write(Encoding.UTF8.GetString(bytes).ToCharArray());
